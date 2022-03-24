@@ -20,17 +20,17 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public void add(T value) {
         modCount++;
-        increase(value);
+        increase();
+        container[size++] = value;
     }
 
-    private void increase(T value) {
+    private void increase() {
         if (size == container.length && container.length != 0) {
             container = Arrays.copyOf(container, container.length * 2);
         }
         if (size == container.length && container.length == 0) {
             container = Arrays.copyOf(container, container.length + 10);
         }
-        container[size++] = value;
     }
 
     @Override

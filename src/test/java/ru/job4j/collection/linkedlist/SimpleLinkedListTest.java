@@ -2,9 +2,11 @@ package ru.job4j.collection.linkedlist;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;
+import ru.job4j.collection.SimpleArrayList;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -96,5 +98,11 @@ public class SimpleLinkedListTest {
         Iterator<Integer> iterator = list.iterator();
         list.add(3);
         iterator.next();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenGetIteratorFromEmptyListThenNextThrowException() {
+        List<Integer> list = new SimpleLinkedList<>();
+        list.iterator().next();
     }
 }

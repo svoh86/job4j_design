@@ -1,5 +1,7 @@
 package ru.job4j.collection;
 
+import java.util.NoSuchElementException;
+
 /**
  * Класс описывает термин FIFO - first input first output. Первый пришел, первый ушел.
  * Организация данных - очередь. Очередь на двух стеках
@@ -28,6 +30,9 @@ public class SimpleQueue<T> {
      * @return первое значение из коллекции
      */
     public T poll() {
+        if (sizeIn == 0 && sizeOut == 0) {
+            throw new NoSuchElementException();
+        }
         if (sizeOut == 0) {
             while (sizeIn > 0) {
                 out.push(in.pop());

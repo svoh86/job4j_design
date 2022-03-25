@@ -1,7 +1,5 @@
 package ru.job4j.collection.forwardlinked;
 
-import org.w3c.dom.Node;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -41,6 +39,33 @@ public class ForwardLinked<T> implements Iterable<T> {
         head.value = null;
         head = newHead;
         return rsl;
+    }
+
+    /**
+     * Метод переворачивает односвязный список.
+     * Валидация, что список не пуст и имеет больше одного значения.
+     * Указатель на предыдущий, текущий и следующий элементы.
+     * следующий = текущий.next;
+     * текущий.next = предыдущий;  разворот ссылки
+     * предыдущий = текущий;
+     * текущий = следующий;
+     *
+     * @return true or false
+     */
+    public boolean revert() {
+        if (head != null && head.next != null) {
+            Node<T> preNode = null;
+            Node<T> currentNode = head;
+            while (currentNode != null) {
+                Node<T> nextNode = currentNode.next;
+                currentNode.next = preNode;
+                preNode = currentNode;
+                currentNode = nextNode;
+            }
+            head = preNode;
+            return true;
+        }
+        return false;
     }
 
     @Override

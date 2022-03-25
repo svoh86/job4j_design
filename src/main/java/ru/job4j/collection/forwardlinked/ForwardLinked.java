@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * Класс описывает одгосвязный список
+ *
  * @author Svistunov Mikhail
  * @version 1.0
  */
@@ -23,6 +25,10 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+    }
+
+    public void addFirst(T value) {
+        head = new Node<T>(value, head);
     }
 
     public T deleteFirst() {

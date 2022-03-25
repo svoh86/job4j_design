@@ -4,6 +4,7 @@ import ru.job4j.collection.forwardlinked.ForwardLinked;
 
 /**
  * Класс, используя контейнер на базе связанного списка, создает контейнер Stack
+ * LIFO
  *
  * @author Svistunov Mikhail
  * @version 1.0

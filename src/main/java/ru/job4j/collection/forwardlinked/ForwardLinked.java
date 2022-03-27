@@ -2,8 +2,7 @@ package ru.job4j.collection.forwardlinked;
 
 import org.w3c.dom.Node;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Класс описывает одгосвязный список
@@ -99,6 +98,18 @@ public class ForwardLinked<T> implements Iterable<T> {
         public Node(T value, Node<T> next) {
             this.value = value;
             this.next = next;
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ListIterator<Integer> i = list.listIterator();
+        while (i.hasNext()) {
+            Integer value = i.next();
+            if (value <= 5) {
+                list.add(value * value);
+            }
+            i.next();
         }
     }
 }

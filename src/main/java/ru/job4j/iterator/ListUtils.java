@@ -112,16 +112,19 @@ public class ListUtils {
             }
         }
     }
-//    public static void main(String[] args) {
-//        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
-//        ListIterator<Integer> iterator = input.listIterator();
-//        System.out.println(iterator.hasNext());
-//        System.out.println(iterator.next());
-//        System.out.println(iterator.nextIndex());
-//        System.out.println(iterator.hasNext());
-//        System.out.println(iterator.next());
-//        System.out.println(iterator.hasNext());
-//        System.out.println(iterator.next());
-//        System.out.println(iterator.hasNext());
-//    }
+
+    /**
+     public static void main(String[] args) {
+     List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+     ListIterator<Integer> iterator = input.listIterator();
+     System.out.println(iterator.hasNext());
+     System.out.println(iterator.next());
+     System.out.println(iterator.nextIndex());
+     System.out.println(iterator.hasNext());
+     System.out.println(iterator.next());
+     System.out.println(iterator.hasNext());
+     System.out.println(iterator.next());
+     System.out.println(iterator.hasNext());
+     }
+     */
 }

@@ -19,9 +19,23 @@ public class ListUtilsTest {
     }
 
     @Test
+    public void whenAddBeforeSimple() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(1, 3));
+        ListUtils.addBeforeSimple(input, 1, 2);
+        assertThat(input, is(Arrays.asList(1, 2, 3)));
+    }
+
+    @Test
     public void whenAddBeforeFirst() {
         List<Integer> input = new ArrayList<>(Arrays.asList(1, 3));
         ListUtils.addBefore(input, 0, 8);
+        assertThat(input, is(Arrays.asList(8, 1, 3)));
+    }
+
+    @Test
+    public void whenAddBeforeFirstSimple() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(1, 3));
+        ListUtils.addBeforeSimple(input, 0, 8);
         assertThat(input, is(Arrays.asList(8, 1, 3)));
     }
 
@@ -39,9 +53,23 @@ public class ListUtilsTest {
     }
 
     @Test
+    public void whenAddAfterLastSimple() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+        ListUtils.addAfterSimple(input, 2, 3);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 3)));
+    }
+
+    @Test
     public void whenAddAfter() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
         ListUtils.addAfter(input, 1, 8);
+        assertThat(input, is(Arrays.asList(0, 1, 8, 2)));
+    }
+
+    @Test
+    public void whenAddAfterSipmle() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+        ListUtils.addAfterSimple(input, 1, 8);
         assertThat(input, is(Arrays.asList(0, 1, 8, 2)));
     }
 

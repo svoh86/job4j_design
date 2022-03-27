@@ -4,13 +4,15 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /**
+ * Класс описывает работу интерфейса ListIterator<E>
+ *
  * @author Svistunov Mikhail
  * @version 1.0
  */
 public class ListUtils {
     /**
      * Метод вставляет значение в список перед индексом.
-     * Проверяем индекс, создеам листератор.
+     * Проверяем индекс, создаем листитератор.
      * Пока есть следующий элемент:
      * если индекс следующего элемента == индексу,
      * то добавляем значение
@@ -32,8 +34,24 @@ public class ListUtils {
     }
 
     /**
+     * Упрощение метода addBefore
+     * Проверяем индекс, создаем листитератор,
+     * ставим курсор на нужный индекс
+     *
+     * @param list  список
+     * @param index инжекс
+     * @param value значение
+     * @param <T>   тип
+     */
+    public static <T> void addBeforeSimple(List<T> list, int index, T value) {
+        Objects.checkIndex(index, list.size());
+        ListIterator<T> iterator = list.listIterator(index);
+        iterator.add(value);
+    }
+
+    /**
      * Метод вставляет значение в список после индекса.
-     * Проверяем индекс, создеам листератор.
+     * Проверяем индекс, создаем листитератор.
      * Пока есть следующий элемент:
      * если индекс следующего элемента == индексу, то переводим курсор далее
      * и добавляем значение
@@ -53,6 +71,22 @@ public class ListUtils {
             }
             iterator.next();
         }
+    }
+
+    /**
+     * Упрощение метода addAfter
+     * Проверяем индекс, создаем листитератор,
+     * ставим курсор на нужный индекс + 1
+     *
+     * @param list  список
+     * @param index инжекс
+     * @param value значение
+     * @param <T>   тип
+     */
+    public static <T> void addAfterSimple(List<T> list, int index, T value) {
+        Objects.checkIndex(index, list.size());
+        ListIterator<T> iterator = list.listIterator(index + 1);
+        iterator.add(value);
     }
 
     /**
@@ -114,17 +148,23 @@ public class ListUtils {
     }
 
     /**
-     public static void main(String[] args) {
-     List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
-     ListIterator<Integer> iterator = input.listIterator();
-     System.out.println(iterator.hasNext());
-     System.out.println(iterator.next());
-     System.out.println(iterator.nextIndex());
-     System.out.println(iterator.hasNext());
-     System.out.println(iterator.next());
-     System.out.println(iterator.hasNext());
-     System.out.println(iterator.next());
-     System.out.println(iterator.hasNext());
-     }
+     * public static void main(String[] args) {
+     * List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+     * ListIterator<Integer> iterator = input.listIterator();
+     * System.out.println(iterator.hasNext());
+     * System.out.println(iterator.next());
+     * System.out.println(iterator.nextIndex());
+     * System.out.println(iterator.hasNext());
+     * System.out.println(iterator.next());
+     * System.out.println(iterator.hasNext());
+     * System.out.println(iterator.next());
+     * System.out.println(iterator.hasNext());
+     *
+     * public static void main(String[] args) {
+     * List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+     * ListIterator<Integer> iterator = input.listIterator(1);
+     * System.out.println(iterator.nextIndex());
+     * System.out.println(iterator.next());
+     * }
      */
 }

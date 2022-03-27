@@ -160,9 +160,8 @@ public class ListUtils {
      * System.out.println(iterator.next());
      * System.out.println(iterator.hasNext());
      *
-     * public static void main(String[] args) {
-     * List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-     * ListIterator<Integer> iterator = input.listIterator(1);
+     * List<Integer> input2 = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+     * ListIterator<Integer> iterator = input2.listIterator(1);
      * System.out.println(iterator.nextIndex());
      * System.out.println(iterator.next());
      * }

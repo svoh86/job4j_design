@@ -70,7 +70,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
      * @return 0 или значение индекса таблицы
      */
     private int checkKey(K key) {
-        return key == null ? 0 : indexFor(key.hashCode());
+        return key == null ? 0 : indexFor(hash(key.hashCode()));
     }
 
     /**
@@ -138,19 +138,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
             @Override
             public boolean hasNext() {
-                while (table[cursor] == null && cursor < count) {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                while (cursor < table.length && table[cursor] == null) {
                     cursor++;
                 }
-                return cursor < count;
+                return cursor < table.length;
             }
 
             @Override
             public K next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return table[cursor++].key;
             }

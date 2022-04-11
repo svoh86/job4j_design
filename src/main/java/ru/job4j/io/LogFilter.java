@@ -39,20 +39,19 @@ public class LogFilter {
     /**
      * Метод записывает результат фильтрации в файл
      *
-     * @param log лист строк
+     * @param log  лист строк
      * @param file строка
      */
     public static void save(List<String> log, String file) {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file)))) {
-            out.println(log);
+            log.forEach(out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
 
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();

@@ -44,4 +44,11 @@ public class ConfigTest {
         config.load();
         assertThat(config.value("surname"), is("Ivanov=1"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPairWithoutEquals() {
+        String path = "./data/pair_without_equals.properties";
+        Config config = new Config(path);
+        config.load();
+    }
 }

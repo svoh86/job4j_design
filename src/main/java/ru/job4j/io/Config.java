@@ -34,7 +34,7 @@ public class Config {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
                 if (!line.isEmpty() && !line.startsWith("#")) {
                     String[] array = line.split("=", 2);
-                    if (array[0].isEmpty() || array[1].isEmpty()) {
+                    if (array.length < 2 || array[0].isEmpty() || array[1].isEmpty()) {
                         throw new IllegalArgumentException("key=value pattern violation");
                     }
                     values.put(array[0], array[1]);

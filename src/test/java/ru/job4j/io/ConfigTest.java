@@ -29,4 +29,19 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPairWithPatternViolationAnother() {
+        String path = "./data/pair_with_pattern_violation_another.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test
+    public void whenPairWithPatternViolationAnotherTwo() {
+        String path = "./data/pair_with_pattern_violation_another2.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("surname"), is("Ivanov=1"));
+    }
 }

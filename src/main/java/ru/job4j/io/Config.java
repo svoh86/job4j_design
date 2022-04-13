@@ -32,9 +32,9 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
-                if (!line.startsWith("#") && !line.isEmpty()) {
-                    String[] array = line.split("=");
-                    if (array[0].isEmpty() || array.length < 2) {
+                if (!line.isEmpty() && !line.startsWith("#")) {
+                    String[] array = line.split("=", 2);
+                    if (array[0].isEmpty() || array[1].isEmpty()) {
                         throw new IllegalArgumentException("key=value pattern violation");
                     }
                     values.put(array[0], array[1]);

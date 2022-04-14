@@ -26,7 +26,7 @@ public class Analizy {
                 String[] array = line.split("\\s");
                 if (Integer.parseInt(array[0]) > 300 && startTime == null) {
                     startTime = array[1];
-                } else if (Integer.parseInt(array[0]) < 300 && startTime != null) {
+                } else if (Integer.parseInt(array[0]) <= 300 && startTime != null) {
                     out.println(startTime + ";" + array[1]);
                     startTime = null;
                 }

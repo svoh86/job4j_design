@@ -21,10 +21,10 @@ public class Search {
     }
 
     private static void check(String[] args) {
-        Path path = Paths.get(args[0]);
-        if (args.length < 2) {
+        if (args.length != 2) {
             throw new IllegalArgumentException("Enter path and extension");
         }
+        Path path = Paths.get(args[0]);
         if (!path.toFile().isDirectory()) {
             throw new IllegalArgumentException("Directory don't exist " + path.toFile().getAbsoluteFile());
         }

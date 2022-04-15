@@ -15,11 +15,22 @@ import java.util.function.Predicate;
  */
 public class Search {
     public static void main(String[] args) throws IOException {
+        check(args);
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+    }
+
+    private static void check(String[] args) {
+        Path path = Paths.get(args[0]);
         if (args.length < 2) {
             throw new IllegalArgumentException("Enter path and extension");
         }
-        Path start = Paths.get(args[0]);
-        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+        if (!path.toFile().isDirectory()) {
+            throw new IllegalArgumentException("Directory don't exist " + path.toFile().getAbsoluteFile());
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Parameter must start with \".\"");
+        }
     }
 
     /**

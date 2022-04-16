@@ -45,6 +45,20 @@ public class Zip {
         }
     }
 
+    private void check(String[] args) {
+        ArgsName argsName = ArgsName.of(args);
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Enter path, extension and archive");
+        }
+        Path path = Paths.get(argsName.get("d"));
+        if (!path.toFile().isDirectory()) {
+            throw new IllegalArgumentException("Directory don't exist " + path.toFile().getAbsoluteFile());
+        }
+        if (!argsName.get("e").startsWith(".")) {
+            throw new IllegalArgumentException("Parameter must start with \".\"");
+        }
+    }
+
     /**
      * Точка входа программы.
      * Нужно прописать параметры запуска main метода.
@@ -60,6 +74,7 @@ public class Zip {
          zipSingle.packSingleFile(new File("./pom.xml"), new File("./pom.zip"));
          */
         Zip zip = new Zip();
+        zip.check(args);
         ArgsName argsName = ArgsName.of(args);
         List<Path> paths = Search.search(Paths.get(argsName.get("d")),
                 p -> !p.toFile().getName().endsWith(argsName.get("e")));

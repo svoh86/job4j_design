@@ -31,7 +31,7 @@ public class ArgsName {
         for (String arg : args) {
             String[] line = arg.split("=", 2);
             name.check(line);
-            values.put(line[0].replaceAll("-", ""), line[1]);
+            values.put(line[0].substring(1), line[1]);
         }
     }
 

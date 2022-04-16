@@ -31,7 +31,7 @@ public class ArgsName {
         for (String arg : args) {
             String[] line = arg.split("=", 2);
             name.check(line);
-            values.put(line[0].replaceAll("-", ""), line[1].replaceAll("-", ""));
+            values.put(line[0].replaceAll("-", ""), line[1]);
         }
     }
 
@@ -41,7 +41,8 @@ public class ArgsName {
      * @param args аргументы
      */
     private void check(String[] args) {
-        if (args.length < 2 || args[0].isEmpty() || args[1].isEmpty()) {
+        if (args.length < 2 || args[0].isEmpty()
+                || !args[0].startsWith("-") || args[1].isEmpty()) {
             throw new IllegalArgumentException("key=value pattern violation");
         }
     }

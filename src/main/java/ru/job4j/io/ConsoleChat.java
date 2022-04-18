@@ -45,11 +45,11 @@ public class ConsoleChat {
         String userPhrase = input.nextLine();
         records.add(userPhrase);
         boolean flag = true;
-        while (!userPhrase.equals(OUT)) {
-            if (userPhrase.equals(STOP)) {
+        while (!OUT.equals(userPhrase)) {
+            if (STOP.equals(userPhrase)) {
                 flag = false;
             }
-            if (userPhrase.equals(CONTINUE)) {
+            if (CONTINUE.equals(userPhrase)) {
                 flag = true;
             }
             if (flag) {

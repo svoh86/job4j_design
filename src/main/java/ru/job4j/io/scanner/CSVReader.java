@@ -36,7 +36,7 @@ public class CSVReader {
             for (String s : filters) {
                 first = first.concat(first.isBlank() ? "" : ";") + s;
             }
-            if (argsName.get("out").equals("stdout")) {
+            if ("stdout".equals(argsName.get("out"))) {
                 System.out.println(first);
                 while (scanner.hasNext()) {
                     String temp = getString(argsName, scanner, indexFilters);

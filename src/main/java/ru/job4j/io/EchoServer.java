@@ -26,8 +26,8 @@ public class EchoServer {
      * программа должна снова получить объект socket.
      * С помощью объекта Socket программа может получить входной поток и может отправить данные в выходной поток.
      * В ответ мы записываем строчку out.write().
-     * В программе читается весь входной поток. После чтения отправляем ответ окончательно out.flush();
-     * Если клиент отправляет запрос http://localhost:9000/?msg=Bye происходит закрытие сервера.
+     * В программе читается первая строка потока. После чтения отправляем ответ окончательно out.flush();
+     * Если клиент отправляет запрос http://localhost:9000/?msg=Exit происходит закрытие сервера.
      *
      * @param args параметры
      * @throws IOException исключения
@@ -43,8 +43,12 @@ public class EchoServer {
                     String str = in.readLine();
                     if (str != null && !str.isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("Bye")) {
+                        if (str.contains("Exit")) {
                             server.close();
+                        } else if (str.contains("Hello")) {
+                            out.write("Hello".getBytes());
+                        } else {
+                            out.write("What".getBytes());
                         }
                     }
                     out.flush();

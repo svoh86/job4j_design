@@ -11,16 +11,22 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        String name = "Petr Arsentev";
-        int age = 33;
-        short sht = 100;
-        long lng = 5000L;
-        double dbl = 10.37D;
-        byte bt = 10;
-        char ch = 'c';
-        boolean bln = false;
-        LOG.debug(
-                "User info name : {}, age : {}, sht : {}, lng : {}, dbl : {}, bt : {}, ch : {}, bln : {}",
-                name, age, sht, lng, dbl, bt, ch, bln);
+//        String name = "Petr Arsentev";
+//        int age = 33;
+//        short sht = 100;
+//        long lng = 5000L;
+//        double dbl = 10.37D;
+//        byte bt = 10;
+//        char ch = 'c';
+//        boolean bln = false;
+//        LOG.debug(
+//                "User info name : {}, age : {}, sht : {}, lng : {}, dbl : {}, bt : {}, ch : {}, bln : {}",
+//                name, age, sht, lng, dbl, bt, ch, bln);
+//    }
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
     }
 }

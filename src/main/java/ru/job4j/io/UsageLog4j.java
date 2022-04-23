@@ -11,7 +11,7 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        /**
+
         String name = "Petr Arsentev";
         int age = 33;
         short sht = 100;
@@ -20,10 +20,10 @@ public class UsageLog4j {
         byte bt = 10;
         char ch = 'c';
         boolean bln = false;
+        float flt = 55.5F;
         LOG.debug(
-                "User info name : {}, age : {}, sht : {}, lng : {}, dbl : {}, bt : {}, ch : {}, bln : {}",
-                name, age, sht, lng, dbl, bt, ch, bln);
-         */
+                "User info name : {}, age : {}, sht : {}, lng : {}, dbl : {}, bt : {}, ch : {}, bln : {}, flt : {}",
+                name, age, sht, lng, dbl, bt, ch, bln, flt);
         try {
             throw new Exception("Not supported code");
         } catch (Exception e) {

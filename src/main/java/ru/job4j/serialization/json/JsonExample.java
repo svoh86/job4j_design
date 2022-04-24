@@ -2,8 +2,12 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Класс описывает преобразование объекта в JSON и обратно.
@@ -24,6 +28,18 @@ public class JsonExample {
         this.passport = passport;
         this.user = user;
         this.children = children;
+    }
+
+    public boolean isPermission() {
+        return permission;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public String getPassport() {
+        return passport;
     }
 
     @Override
@@ -57,5 +73,25 @@ public class JsonExample {
                         + "}";
         final JsonExample jsonExampleMod = gson.fromJson(jsonExampleJson, JsonExample.class);
         System.out.println(jsonExampleMod);
+
+        /* JSONObject из json-строки строки */
+        JSONObject jsonUser = new JSONObject("{\"name\":\"Ivan\",\"surname\":\"Ivanov\"}");
+        /* JSONArray из ArrayList */
+        List<Integer> list = new ArrayList<>();
+        list.add(15);
+        list.add(13);
+        JSONArray jsonChildren = new JSONArray(list);
+        /* JSONObject напрямую методом put */
+        final JsonExample jSONExample = new JsonExample(true, 15, "111-1111",
+                new User("Ivan", "Ivanov"), new Integer[]{10, 6});
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("permission", jSONExample.isPermission());
+        jsonObject.put("experience", jSONExample.getExperience());
+        jsonObject.put("passport", jSONExample.getPassport());
+        jsonObject.put("user", jsonUser);
+        jsonObject.put("children", jsonChildren);
+        System.out.println(jsonObject.toString());
+        /* Преобразуем объект person в json-строку */
+        System.out.println(new JSONObject(jSONExample).toString());
     }
 }

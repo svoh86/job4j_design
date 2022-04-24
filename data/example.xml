@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<jsonExample permission="true" experience="15" passport="111-1111">
+    <user name="Ivan" surname="Ivanov"/>
+    <children>
+        <child>10</child>
+        <child>6</child>
+    </children>
+</jsonExample>

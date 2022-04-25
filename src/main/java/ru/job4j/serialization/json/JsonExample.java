@@ -42,6 +42,14 @@ public class JsonExample {
         return passport;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Integer[] getChildren() {
+        return children;
+    }
+
     @Override
     public String toString() {
         return "JsonExample{" + "permission=" + permission
@@ -59,23 +67,23 @@ public class JsonExample {
      * @param args параметры
      */
     public static void main(String[] args) {
-        JsonExample jsonExample = new JsonExample(true, 15, "111-1111",
-                new User("Ivan", "Ivanov"), new Integer[]{10, 6});
-        final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(jsonExample));
-        final String jsonExampleJson =
-                "{"
-                        + "\"permission\":false,"
-                        + "\"experience\":10,"
-                        + "\"passport\":\"222-2222\","
-                        + "\"user\":{\"name\":\"Petr\",\"surname\":\"Petrov\"},"
-                        + "\"children\":[3]"
-                        + "}";
-        final JsonExample jsonExampleMod = gson.fromJson(jsonExampleJson, JsonExample.class);
-        System.out.println(jsonExampleMod);
+//        JsonExample jsonExample = new JsonExample(true, 15, "111-1111",
+//                new User("Ivan", "Ivanov"), new Integer[]{10, 6});
+//        final Gson gson = new GsonBuilder().create();
+//        System.out.println(gson.toJson(jsonExample));
+//        final String jsonExampleJson =
+//                "{"
+//                        + "\"permission\":false,"
+//                        + "\"experience\":10,"
+//                        + "\"passport\":\"222-2222\","
+//                        + "\"user\":{\"name\":\"Petr\",\"surname\":\"Petrov\"},"
+//                        + "\"children\":[3]"
+//                        + "}";
+//        final JsonExample jsonExampleMod = gson.fromJson(jsonExampleJson, JsonExample.class);
+//        System.out.println(jsonExampleMod);
 
         /* JSONObject из json-строки строки */
-        JSONObject jsonUser = new JSONObject("{\"name\":\"Ivan\",\"surname\":\"Ivanov\"}");
+        JSONObject jsonUser = new JSONObject("{\"name\":\"Petr\",\"surname\":\"Petrov\"}");
         /* JSONArray из ArrayList */
         List<Integer> list = new ArrayList<>();
         list.add(15);

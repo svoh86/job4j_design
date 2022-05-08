@@ -20,6 +20,9 @@ values('Boris', 2);
 
 insert into employees(name, departments_id)
 values('Dima', 3), ('Dasha', 3);
+
+insert into employees(name)
+values('Petr');
 -- запросы с left, rigth, full, cross соединениями
 select*from employees e 
 left join departments d 
@@ -44,7 +47,8 @@ where e.name is null;
 -- которые давали бы одинаковый результат (порядок вывода колонок в эти запросах также должен быть идентичный). 
 select*from employees e 
 left join departments d 
-on e.departments_id = d.id;
+on e.departments_id = d.id
+where d.name is not null;
 select*from employees e 
 right join departments d 
 on e.departments_id = d.id 

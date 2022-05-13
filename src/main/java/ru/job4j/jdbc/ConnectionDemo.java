@@ -24,7 +24,7 @@ import java.sql.SQLException;
  */
 public class ConnectionDemo {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Config config = new Config("./data/app.properties");
+        Config config = new Config("./resources/app.properties");
         config.load();
         Class.forName(config.value("hibernate.connection.driver_class"));
         String url = config.value("hibernate.connection.url");

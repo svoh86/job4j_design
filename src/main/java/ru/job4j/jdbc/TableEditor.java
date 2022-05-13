@@ -1,8 +1,6 @@
 package ru.job4j.jdbc;
 
-import java.io.FileReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -11,6 +9,7 @@ import java.util.StringJoiner;
  * Класс описывает случаи создания таблицы, добавления столбцов,
  * их переименование и удаление, удаление самой таблицы.
  * Для чтения из файла app.properties используем класс Properties.
+ * Для загрузки настроек используем ClassLoader.
  *
  * @author Svistunov Mikhail
  * @version 1.0
@@ -26,11 +25,9 @@ public class TableEditor implements AutoCloseable {
 
     /**
      * Метод описывает подключение к БД через драйвер.
-     * Открываем символьный поток и читаем properties через load().
      * После добавления зависимости на драйвер в pom.xml, нам необходимо его
      * зарегистрировать в системе через Class.forName.
      * Для подключения нам нужны url, логин (имя пользователя) и пароль.
-     * Для чтения из файла app.properties используем класс Properties.
      * Чтобы получить подключение нужно воспользоваться классом DriverManager,
      * передав ему эти аргументы. Теперь мы получили объект типа Connection.
      * Далее этот объект идет в конструктор TableEditor.
@@ -38,10 +35,6 @@ public class TableEditor implements AutoCloseable {
      * @throws Exception исключение
      */
     private void initConnection() throws Exception {
-        Path path = Paths.get("./data/app.properties");
-        try (FileReader fr = new FileReader(path.toFile())) {
-            properties.load(fr);
-        }
         Class.forName(properties.getProperty("hibernate.connection.driver_class"));
         String url = properties.getProperty("hibernate.connection.url");
         String login = properties.getProperty("hibernate.connection.username");
@@ -155,20 +148,35 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
+    /**
+     * Для чтения из файла app.properties используем класс Properties.
+     * Ресурсные файлы в папке resources по пути src/main/resources.
+     * Для загрузки настроек используем ClassLoader,
+     * который будет искать файлы по названию именно в этой папке.
+     * Чтобы закрывать созданное подключение, используем TableEditor с try with resources
+     *
+     * @param args аргументы
+     * @throws Exception исключения
+     */
     public static void main(String[] args) throws Exception {
-        TableEditor tableEditor = new TableEditor(new Properties());
-        tableEditor.createTable("Cars");
-        System.out.println(getTableScheme(tableEditor.connection, "Cars"));
+        Properties config = new Properties();
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
+            config.load(in);
+            try (TableEditor tableEditor = new TableEditor(config)) {
+                tableEditor.createTable("Cars");
+                System.out.println(getTableScheme(tableEditor.connection, "Cars"));
 
-        tableEditor.addColumn("Cars", "model", "text");
-        System.out.println(getTableScheme(tableEditor.connection, "Cars"));
+                tableEditor.addColumn("Cars", "model", "text");
+                System.out.println(getTableScheme(tableEditor.connection, "Cars"));
 
-        tableEditor.renameColumn("Cars", "model", "brand");
-        System.out.println(getTableScheme(tableEditor.connection, "Cars"));
+                tableEditor.renameColumn("Cars", "model", "brand");
+                System.out.println(getTableScheme(tableEditor.connection, "Cars"));
 
-        tableEditor.dropColumn("Cars", "brand");
-        System.out.println(getTableScheme(tableEditor.connection, "Cars"));
+                tableEditor.dropColumn("Cars", "brand");
+                System.out.println(getTableScheme(tableEditor.connection, "Cars"));
 
-        tableEditor.dropTable("Cars");
+                tableEditor.dropTable("Cars");
+            }
+        }
     }
 }

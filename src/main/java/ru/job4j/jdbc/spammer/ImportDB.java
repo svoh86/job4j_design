@@ -40,7 +40,7 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(s -> {
                 String[] words = s.split(";");
-                if (words.length != 2) {
+                if (words.length != 2  || words[0].isEmpty() || words[1].isEmpty()) {
                     throw new IllegalArgumentException("Wrong arguments");
                 }
                 users.add(new User(words[0], words[1]));

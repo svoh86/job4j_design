@@ -1,0 +1,3 @@
+Moscow, av. Mira, 5;
+SPb, st. Lenina, 10;
+Samara, sq. Pobedy, 15;

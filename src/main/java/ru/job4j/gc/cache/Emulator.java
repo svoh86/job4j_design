@@ -1,5 +1,8 @@
 package ru.job4j.gc.cache;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -13,14 +16,51 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class Emulator {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        DirFileCache dirFileCache = new DirFileCache(filesFromDir());
+        String fileName = fileName();
+        boolean run = true;
+        while (run) {
+            System.out.printf("%nВыберите действие:%n1.Прочитать содержимое файла "
+                              + "%n2.Занести содержимое файла в кэш и прочитать"
+                              + "%n3.Выйти их программы%n");
+            String select = SCANNER.nextLine();
+            if (Integer.parseInt(select) == 1) {
+                System.out.println(dirFileCache.load(fileName));
+            } else if (Integer.parseInt(select) == 2) {
+                System.out.println(dirFileCache.get(fileName));
+            } else if (Integer.parseInt(select) == 3) {
+                run = false;
+            } else {
+                System.out.println("Ошибка выбора");
+            }
+        }
+    }
+
+    /**
+     * Метод считывает с консоли введенное пользователем имя директории
+     * и выводит список файлов из неё.
+     * Если такой директории нет, то выводит список файлов из корня проекта.
+     *
+     * @return имя директории
+     * @throws IOException исключение
+     */
+    private static String filesFromDir() throws IOException {
+        String defaultDir = ".";
         System.out.println("Укажите директорию: ");
-        String dir = scanner.nextLine();
-        DirFileCache dirFileCache = new DirFileCache(dir);
+        String dir = SCANNER.nextLine();
+        if (!Files.exists(Path.of(dir))) {
+            dir = defaultDir;
+            System.out.println("Указанная директория не сущуствует. Показаны файлы из корня проекта.");
+        }
+        Files.list(Path.of(dir)).forEach(System.out::println);
+        return dir;
+    }
+
+    private static String fileName() {
         System.out.println("Укажите имя файла: ");
-        String fileName = scanner.nextLine();
-        dirFileCache.load(fileName);
-        System.out.println(dirFileCache.get(fileName));
+        return SCANNER.nextLine();
     }
 }

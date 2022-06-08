@@ -1,7 +1,8 @@
 package ru.job4j.gc.cache;
 
 import java.io.*;
-import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Класс описывает реализацию абстрактного класса.
@@ -11,7 +12,8 @@ import java.nio.file.Paths;
  * По умолчанию в кэше нет ни одного файла. Текстовые файл должны лежать в одной директории.
  *
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * 1.1 rsl = Files.readString(Path.of(cachingDir, key));
  */
 public class DirFileCache extends AbstractCache<String, String> {
     private final String cachingDir;
@@ -23,21 +25,18 @@ public class DirFileCache extends AbstractCache<String, String> {
     /**
      * Метод получает имя файла, читает его содержимое,
      * выводит все в одну строку.
-     * Далее кладем эту строку вместе с ключом в кэш (мапу).
      *
      * @param key имя файла
      * @return содержимое файла в одну строку
      */
     @Override
     protected String load(String key) {
-        StringBuilder rsl = new StringBuilder();
-        try (BufferedReader read = new BufferedReader(
-                new FileReader(Paths.get(cachingDir, key).toString()))) {
-            read.lines().forEach(rsl::append);
-            put(key, rsl.toString());
+        String rsl = "";
+        try {
+            rsl = Files.readString(Path.of(cachingDir, key));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return rsl.toString();
+        return rsl;
     }
 }

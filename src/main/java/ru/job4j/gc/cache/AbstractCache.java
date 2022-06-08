@@ -9,7 +9,8 @@ import java.util.Map;
  * Описывает структуру данных типа кеш.
  *
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * в методе get() V value = cache.getOrDefault(key, new SoftReference<V>(null)).get();
  */
 public abstract class AbstractCache<K, V> {
     protected final Map<K, SoftReference<V>> cache = new HashMap<>();
@@ -28,14 +29,16 @@ public abstract class AbstractCache<K, V> {
      * Метод принимает ключ. Получаем стронг-ссылку из мапы
      * и проверяем, что если значения нет в памяти (==null),
      * то вызываем метод load() для получения значения.
+     * Далее кладем значение вместе с ключом в кэш (мапу).
      *
      * @param key ключ
      * @return значение
      */
     public V get(K key) {
-        V value = cache.get(key).get();
+        V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
         if (value == null) {
             value = load(key);
+            put(key, value);
         }
         return value;
     }

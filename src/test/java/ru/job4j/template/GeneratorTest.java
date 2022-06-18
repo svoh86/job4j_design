@@ -15,7 +15,8 @@ public class GeneratorTest {
         Generator generator = new GeneratorOne();
         String template = "I am a ${name}, Who are ${subject}? ";
         Map<String, String> map = new HashMap<>();
-        map.put("Petr Arsentev", "you");
+        map.put("name", "Petr Arsentev");
+        map.put("subject", "you");
         assertEquals("I am a Petr Arsentev, Who are you? ", generator.produce(template, map));
     }
 
@@ -27,6 +28,10 @@ public class GeneratorTest {
     public void whenTemplateIncorrectly() {
         Generator generator = new GeneratorOne();
         String template = "I am a ${name}, Who are ${subject}, my friend ${friend}? ";
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Petr Arsentev");
+        map.put("subject", "you");
+        generator.produce(template, map);
     }
 
     /**
@@ -38,7 +43,9 @@ public class GeneratorTest {
         Generator generator = new GeneratorOne();
         String template = "I am a ${name}, Who are ${subject}? ";
         Map<String, String> map = new HashMap<>();
-        map.put("Petr Arsentev", "you");
-        map.put("Ivan Ivanov", "they");
+        map.put("name", "Petr Arsentev");
+        map.put("subject", "you");
+        map.put("friend", "friend");
+        generator.produce(template, map);
     }
 }

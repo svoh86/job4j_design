@@ -31,10 +31,13 @@ public class MaxMin {
      * @return объект <T>
      */
     private <T> T getT(List<T> value, BiPredicate<Integer, T> predicate) {
-        T rsl = value.get(0);
-        for (int i = 1; i < value.size(); i++) {
-            if (predicate.test(i, rsl)) {
-                rsl = value.get(i);
+        T rsl = null;
+        if (!value.isEmpty()) {
+            rsl = value.get(0);
+            for (int i = 1; i < value.size(); i++) {
+                if (predicate.test(i, rsl)) {
+                    rsl = value.get(i);
+                }
             }
         }
         return rsl;

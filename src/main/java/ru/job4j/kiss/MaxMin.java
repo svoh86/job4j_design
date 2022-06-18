@@ -9,7 +9,8 @@ import java.util.function.BiPredicate;
  * по критерию java.util.Comparator.
  *
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * Добавлена проверка листа на null
  */
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {

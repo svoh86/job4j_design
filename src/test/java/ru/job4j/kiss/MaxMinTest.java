@@ -29,7 +29,7 @@ public class MaxMinTest {
     }
 
     @Test
-    public void whenListEmpty() {
+    public void whenListIsEmpty() {
         List<Integer> list = new ArrayList<>();
         MaxMin maxMin = new MaxMin();
         Comparator<Integer> com = Integer::compareTo;

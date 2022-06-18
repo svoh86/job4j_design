@@ -32,7 +32,7 @@ public class CinemaTest {
     }
 
     /**
-     * Тест, когда место занято или не существует.
+     * Тест, когда место занято.
      */
     @Ignore
     @Test(expected = IllegalArgumentException.class)
@@ -42,6 +42,20 @@ public class CinemaTest {
         Calendar date = Calendar.getInstance();
         date.set(2022, 6, 18, 10, 45);
         Ticket ticket = cinema.buy(account, 10, 10, date);
+        Ticket ticket2 = cinema.buy(account, 10, 10, date);
+    }
+
+    /**
+     * Тест, когда место не существует.
+     */
+    @Ignore
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPlaceIsNotExist() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2022, 6, 18, 10, 45);
+        Ticket ticket = cinema.buy(account, 1000, 10, date);
     }
 
     /**

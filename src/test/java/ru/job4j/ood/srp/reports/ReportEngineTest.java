@@ -2,12 +2,12 @@ package ru.job4j.ood.srp.reports;
 
 import org.junit.Test;
 import ru.job4j.ood.srp.reports.generator.*;
+import ru.job4j.ood.srp.reports.utility.Constants;
 
 import java.util.Calendar;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.job4j.ood.srp.reports.generator.GeneratorReport.DATE_FORMAT;
 
 public class ReportEngineTest {
     @Test
@@ -22,8 +22,8 @@ public class ReportEngineTest {
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")
-                .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
-                .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
+                .append(Constants.DATE_FORMAT.format(worker.getHired().getTime())).append(";")
+                .append(Constants.DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
@@ -62,8 +62,8 @@ public class ReportEngineTest {
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")
-                .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
-                .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
+                .append(Constants.DATE_FORMAT.format(worker.getHired().getTime())).append(";")
+                .append(Constants.DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary() * 56.7).append(" rub").append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));

@@ -2,6 +2,7 @@ package ru.job4j.ood.srp.reports.generator;
 
 import ru.job4j.ood.srp.reports.Employee;
 import ru.job4j.ood.srp.reports.Store;
+import ru.job4j.ood.srp.reports.utility.Constants;
 
 import java.util.function.Predicate;
 
@@ -9,7 +10,8 @@ import java.util.function.Predicate;
  * Класс генерирует отчет для бухгалтерии
  *
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * Добавлен класс констант
  */
 public class AccountingGenerator implements GeneratorReport {
     @Override
@@ -19,9 +21,9 @@ public class AccountingGenerator implements GeneratorReport {
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
-                    .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(employee.getSalary() * 56.7).append(" rub").append(";")
+                    .append(Constants.DATE_FORMAT.format(employee.getHired().getTime())).append(";")
+                    .append(Constants.DATE_FORMAT.format(employee.getFired().getTime())).append(";")
+                    .append(employee.getSalary() * Constants.CONVERTER).append(" rub").append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();

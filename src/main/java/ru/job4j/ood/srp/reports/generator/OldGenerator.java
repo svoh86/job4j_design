@@ -2,6 +2,7 @@ package ru.job4j.ood.srp.reports.generator;
 
 import ru.job4j.ood.srp.reports.Employee;
 import ru.job4j.ood.srp.reports.Store;
+import ru.job4j.ood.srp.reports.utility.Constants;
 
 import java.util.function.Predicate;
 
@@ -19,8 +20,8 @@ public class OldGenerator implements GeneratorReport {
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
-                    .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
+                    .append(Constants.DATE_FORMAT.format(employee.getHired().getTime())).append(";")
+                    .append(Constants.DATE_FORMAT.format(employee.getFired().getTime())).append(";")
                     .append(employee.getSalary()).append(";")
                     .append(System.lineSeparator());
         }

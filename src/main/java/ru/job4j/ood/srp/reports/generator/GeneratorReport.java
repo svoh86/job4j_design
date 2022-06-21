@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 public interface GeneratorReport {
-    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+//    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     String generate(Predicate<Employee> filter, Store store);
 }

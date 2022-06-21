@@ -1,5 +1,6 @@
 package ru.job4j.ood.srp.reports;
 
+import javax.xml.bind.annotation.*;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -7,11 +8,20 @@ import java.util.Objects;
  * @author Svistunov Mikhail
  * @version 1.0
  */
+@XmlRootElement(name = "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Employee {
+    @XmlAttribute
     private String name;
+    @XmlAttribute
     private Calendar hired;
+    @XmlAttribute
     private Calendar fired;
+    @XmlAttribute
     private double salary;
+
+    public Employee() {
+    }
 
     public Employee(String name, Calendar hired, Calendar fired, double salary) {
         this.name = name;

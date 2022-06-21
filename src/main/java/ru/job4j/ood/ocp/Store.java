@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.ocp;
+package ru.job4j.ood.ocp;
 
 import ru.job4j.ood.srp.reports.MemStore;
 

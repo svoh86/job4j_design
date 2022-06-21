@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.ocp;
+package ru.job4j.ood.ocp;
 
 /**
  * Класс нарушает принцип ОСР, т.к.

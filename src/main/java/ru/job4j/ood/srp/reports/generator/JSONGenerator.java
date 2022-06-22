@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import ru.job4j.ood.srp.reports.Employee;
 import ru.job4j.ood.srp.reports.Store;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -18,9 +19,8 @@ public class JSONGenerator implements GeneratorReport {
     public String generate(Predicate<Employee> filter, Store store) {
         StringBuilder json = new StringBuilder();
         final Gson gson = new GsonBuilder().create();
-        for (Employee employee : store.findBy(filter)) {
-            json.append(gson.toJson(employee));
-        }
+        List<Employee> employees = store.findBy(filter);
+        json.append(gson.toJson(employees));
         return json.toString();
     }
 }

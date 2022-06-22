@@ -1,6 +1,9 @@
 package ru.job4j.ood.srp.reports;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -8,7 +11,7 @@ import java.util.Objects;
  * @author Svistunov Mikhail
  * @version 1.0
  */
-@XmlRootElement(name = "employee")
+@XmlRootElement()
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Employee {
     @XmlAttribute

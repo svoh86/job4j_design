@@ -1,12 +1,15 @@
 package ru.job4j.ood.srp.reports;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.ood.srp.reports.generator.*;
 import ru.job4j.ood.srp.reports.utility.Constants;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -98,32 +101,31 @@ public class ReportEngineTest {
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 
-    @Ignore
     @Test
-    public void whenXmlReport() {
+    public void whenXmlReport() throws DatatypeConfigurationException {
         MemStore store = new MemStore();
-        Calendar now = new GregorianCalendar(2022, Calendar.JUNE, 21);
+        Calendar now = Calendar.getInstance();
+        XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar((GregorianCalendar) now);
         Employee worker = new Employee("Ivan", now, now, 100);
         Employee worker2 = new Employee("Fedor", now, now, 200);
         store.add(worker);
         store.add(worker2);
         GeneratorReport generate = new XmlGenerator();
         Report engine = new ReportEngine(store, generate);
+        String template = "<employee name=\"%s\" hired=\"%s\" fired=\"%s\" salary=\"%.1f\"/>";
         StringBuilder expect = new StringBuilder()
                 .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
                 .append("\n")
-                .append("<employee name=\"Ivan\" hired=\"2022-06-21T00:00:00+03:00\" "
-                        + "fired=\"2022-06-21T00:00:00+03:00\" salary=\"100.0\"/>")
+                .append("<employees>")
+                .append("\n    ")
+                .append(String.format(Locale.US, template, worker.getName(), date, date, worker.getSalary()))
+                .append("\n    ")
+                .append(String.format(Locale.US, template, worker2.getName(), date, date, worker2.getSalary()))
                 .append("\n")
-                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
-                .append("\n")
-                .append("<employee name=\"Fedor\" hired=\"2022-06-21T00:00:00+03:00\" "
-                        + "fired=\"2022-06-21T00:00:00+03:00\" salary=\"200.0\"/>")
-                .append("\n");
+                .append("</employees>\n");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 
-    @Ignore
     @Test
     public void whenJsonReport() {
         MemStore store = new MemStore();
@@ -135,14 +137,18 @@ public class ReportEngineTest {
         GeneratorReport generate = new JSONGenerator();
         Report engine = new ReportEngine(store, generate);
         StringBuilder expect = new StringBuilder()
-                .append("{\"name\":\"Ivan\","
-                        + "\"hired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-                        + "\"fired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-                        + "\"salary\":100.0}")
-                .append("{\"name\":\"Fedor\","
-                        + "\"hired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-                        + "\"fired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,\"hourOfDay\":0,\"minute\":0,\"second\":0},"
-                        + "\"salary\":200.0}");
+                .append("[{\"name\":\"Ivan\",")
+                .append("\"hired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,")
+                .append("\"hourOfDay\":0,\"minute\":0,\"second\":0},")
+                .append("\"fired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,")
+                .append("\"hourOfDay\":0,\"minute\":0,\"second\":0},")
+                .append("\"salary\":100.0},")
+                .append("{\"name\":\"Fedor\",")
+                .append("\"hired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,")
+                .append("\"hourOfDay\":0,\"minute\":0,\"second\":0},")
+                .append("\"fired\":{\"year\":2022,\"month\":5,\"dayOfMonth\":21,")
+                .append("\"hourOfDay\":0,\"minute\":0,\"second\":0},")
+                .append("\"salary\":200.0}]");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

@@ -7,20 +7,28 @@ import java.util.List;
  * Класс описывает хранилище Trash
  *
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * getAll() нарушал инкапсуляцию, т.к. получаем доступ к хранилищу и
+ * можем добавлять невалидный продукты напрямую. Теперь возвращаем копию.
+ * Добавлены константы.
+ * save() переделан на boolean.
+ * Класс PercentDate заменен на дефолтный метод в интерфейсе Store.
  */
 public class Trash implements Store {
     private final List<Food> foods = new ArrayList<>();
 
     @Override
-    public void save(Food food) {
-        if (PercentDate.percent(food) >= 100) {
+    public boolean save(Food food) {
+        boolean flag = false;
+        if (percent(food) >= Constants.UPPER_LIMIT) {
             foods.add(food);
+            flag = true;
         }
+        return flag;
     }
 
     @Override
     public List<Food> getAll() {
-        return foods;
+        return List.copyOf(foods);
     }
 }

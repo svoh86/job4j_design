@@ -16,7 +16,6 @@ public class ControlQualityTest {
     Store shop = new Shop();
     Store trash = new Trash();
     List<Store> storeList = List.of(warehouse, shop, trash);
-    List<Food> foods = new ArrayList<>();
 
     @Test
     public void whenWarehouse() {
@@ -24,12 +23,9 @@ public class ControlQualityTest {
                 "Milk", currentDate.plusDays(10), currentDate.minusDays(1), 100, 10);
         Food cheese = new Cheese(
                 "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
-        foods.add(milk);
-        foods.add(cheese);
         ControlQuality controlQuality = new ControlQuality(storeList);
-        for (Food food : foods) {
-            controlQuality.distribution(food);
-        }
+        controlQuality.distribution(milk);
+        controlQuality.distribution(cheese);
         assertEquals(warehouse.getAll(), List.of(milk));
     }
 
@@ -39,12 +35,9 @@ public class ControlQualityTest {
                 "Milk", currentDate.plusDays(10), currentDate.minusDays(1), 100, 10);
         Food cheese = new Cheese(
                 "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
-        foods.add(milk);
-        foods.add(cheese);
         ControlQuality controlQuality = new ControlQuality(storeList);
-        for (Food food : foods) {
-            controlQuality.distribution(food);
-        }
+        controlQuality.distribution(milk);
+        controlQuality.distribution(cheese);
         assertEquals(trash.getAll(), List.of(cheese));
     }
 
@@ -54,12 +47,9 @@ public class ControlQualityTest {
                 "Bread", currentDate.plusDays(3), currentDate.minusDays(3), 100, 10);
         Food cheese = new Cheese(
                 "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
-        foods.add(bread);
-        foods.add(cheese);
         ControlQuality controlQuality = new ControlQuality(storeList);
-        for (Food food : foods) {
-            controlQuality.distribution(food);
-        }
+        controlQuality.distribution(bread);
+        controlQuality.distribution(cheese);
         assertEquals(shop.getAll(), List.of(bread));
     }
 
@@ -69,12 +59,29 @@ public class ControlQualityTest {
                 "Bread", currentDate.plusDays(1), currentDate.minusDays(5), 100, 10);
         Food cheese = new Cheese(
                 "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
-        foods.add(bread);
-        foods.add(cheese);
         ControlQuality controlQuality = new ControlQuality(storeList);
-        for (Food food : foods) {
-            controlQuality.distribution(food);
-        }
+        controlQuality.distribution(bread);
+        controlQuality.distribution(cheese);
         assertThat(bread.getPrice(), is(90d));
+    }
+
+    @Test
+    public void whenAllConditions() {
+        Food milk = new Milk(
+                "Milk", currentDate.plusDays(10), currentDate.minusDays(1), 100, 10);
+        Food cheese = new Cheese(
+                "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
+        Food bread = new Bread(
+                "Bread", currentDate.plusDays(3), currentDate.minusDays(3), 100, 10);
+        Food breadDiscount = new Bread(
+                "Bread", currentDate.plusDays(1), currentDate.minusDays(5), 100, 10);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.distribution(milk);
+        controlQuality.distribution(cheese);
+        controlQuality.distribution(bread);
+        controlQuality.distribution(breadDiscount);
+        assertEquals(warehouse.getAll(), List.of(milk));
+        assertEquals(trash.getAll(), List.of(cheese));
+        assertEquals(shop.getAll(), List.of(bread, breadDiscount));
     }
 }

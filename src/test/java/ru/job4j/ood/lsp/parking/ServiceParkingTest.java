@@ -8,26 +8,25 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ServiceParkingTest {
-    Parking carParking = new CarParking();
-    Parking truckParking = new TruckParking();
-    List<Parking> parkingList = List.of(carParking, truckParking);
 
-    @Ignore
     @Test
     public void whenCarParking() {
         Vehicle car = new Car("Nissan");
         Vehicle car2 = new Car("Toyota");
-        ServiceParking serviceParking = new ServiceParking(parkingList, 5, 3);
+        Parking carParking = new CarParking(5);
+        List<Parking> parkingList = List.of(carParking);
+        ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
         serviceParking.distribution(car2);
         assertEquals(carParking.getAll(), List.of(car, car2));
     }
 
-    @Ignore
     @Test
     public void whenTruckParking() {
         Vehicle car = new Truck("Nissan", 3);
-        ServiceParking serviceParking = new ServiceParking(parkingList, 3, 5);
+        Parking truckParking = new TruckParking(5);
+        List<Parking> parkingList = List.of(truckParking);
+        ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
         assertEquals(truckParking.getAll(), List.of(car));
     }
@@ -37,13 +36,14 @@ public class ServiceParkingTest {
         Vehicle car = new Truck("Nissan", 1);
     }
 
-    @Ignore
     @Test
     public void whenTruckParking5Truck3WithSize2() {
         Vehicle car = new Truck("Nissan", 2);
         Vehicle car2 = new Truck("Toyota", 2);
         Vehicle car3 = new Truck("Volvo", 2);
-        ServiceParking serviceParking = new ServiceParking(parkingList, 0, 5);
+        Parking truckParking = new TruckParking(5);
+        List<Parking> parkingList = List.of(truckParking);
+        ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
         serviceParking.distribution(car2);
         serviceParking.distribution(car3);
@@ -52,27 +52,32 @@ public class ServiceParkingTest {
 
     @Ignore
     @Test
-    public void whenCarParking1AndTuckParking5Truck3WithSize2() {
+    public void whenCarParking2AndTuckParking5Truck3WithSize2() {
         Vehicle car = new Truck("Nissan", 2);
         Vehicle car2 = new Truck("Toyota", 2);
         Vehicle car3 = new Truck("Volvo", 2);
-        ServiceParking serviceParking = new ServiceParking(parkingList, 1, 5);
+        Parking carParking = new CarParking(2);
+        Parking truckParking = new TruckParking(5);
+        List<Parking> parkingList = List.of(truckParking, carParking);
+        ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
         serviceParking.distribution(car2);
         serviceParking.distribution(car3);
-        assertEquals(truckParking.getAll(), List.of(car, car2, car3));
+        assertEquals(truckParking.getAll(), List.of(car, car2));
+        assertEquals(carParking.getAll(), List.of(car3));
     }
 
-    @Ignore
     @Test
     public void whenParking2Car3() {
         Vehicle car = new Car("Nissan");
         Vehicle car2 = new Car("Toyota");
         Vehicle car3 = new Car("Volvo");
-        ServiceParking serviceParking = new ServiceParking(parkingList, 2, 5);
+        Parking carParking = new CarParking(2);
+        List<Parking> parkingList = List.of(carParking);
+        ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
         serviceParking.distribution(car2);
         serviceParking.distribution(car3);
-        assertEquals(truckParking.getAll(), List.of(car, car2));
+        assertEquals(carParking.getAll(), List.of(car, car2));
     }
 }

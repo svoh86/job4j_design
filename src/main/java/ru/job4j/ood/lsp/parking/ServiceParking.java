@@ -6,21 +6,20 @@ import java.util.List;
  * Класс в зависимости от размера машины распределяет машины по парковочным местам.
  *
  * @author Svistunov Mikhail
- * @version 1.1
+ * @version 1.2
  * Добавил поля с количеством парковочных мест для легковых и грузовых.
+ * Перенес поля в реализации Parking.
  */
 public class ServiceParking {
     private final List<Parking> parkingList;
-    private final int amountCarParking;
-    private final int amountTruckParking;
 
-    public ServiceParking(List<Parking> parkings, int amountCarParking, int amountTruckParking) {
+    public ServiceParking(List<Parking> parkings) {
         this.parkingList = parkings;
-        this.amountCarParking = amountCarParking;
-        this.amountTruckParking = amountTruckParking;
     }
 
     public void distribution(Vehicle vehicle) {
-
+        for (Parking parking : parkingList) {
+            parking.park(vehicle);
+        }
     }
 }

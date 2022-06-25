@@ -13,7 +13,7 @@ public class TruckParking implements Parking {
     private final List<Vehicle> vehicles = new ArrayList<>();
 
     @Override
-    public boolean save(Vehicle vehicle) {
+    public boolean park(Vehicle vehicle) {
         return false;
     }
 

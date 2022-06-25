@@ -8,7 +8,7 @@ import java.util.List;
  * и получения всех машин.
  */
 public interface Parking {
-    boolean save(Vehicle vehicle);
+    boolean park(Vehicle vehicle);
 
     List<Vehicle> getAll();
 }

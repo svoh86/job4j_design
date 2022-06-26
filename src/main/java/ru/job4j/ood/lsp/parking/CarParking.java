@@ -11,25 +11,29 @@ import java.util.List;
  * Добавил поля с количеством парковочных мест.
  */
 public class CarParking implements Parking {
-    private final List<Vehicle> vehicles = new ArrayList<>();
-    private int amountCarParking;
+    private final List<Vehicle> vehicles;
+    private int capacity;
 
-    public CarParking(int amountCarParking) {
-        this.amountCarParking = amountCarParking;
+    public CarParking(int capacity) {
+        this.vehicles = new ArrayList<>(capacity);
+        this.capacity = capacity;
     }
 
     @Override
     public boolean park(Vehicle vehicle) {
         boolean flag = false;
         int size = vehicle.getSize();
-        if (size == Car.SIZE && amountCarParking >= size) {
+        if (capacity < size) {
+            return false;
+        }
+        if (size == Car.SIZE) {
             vehicles.add(vehicle);
-            amountCarParking -= size;
+            capacity -= size;
             flag = true;
         }
-        if (size > Car.SIZE && amountCarParking >= size) {
+        if (size > Car.SIZE) {
             vehicles.add(vehicle);
-            amountCarParking -= size;
+            capacity -= size;
             flag = true;
         }
         return flag;

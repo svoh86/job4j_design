@@ -41,7 +41,7 @@ public class ServiceParkingTest {
         Vehicle car = new Truck("Nissan", 2);
         Vehicle car2 = new Truck("Toyota", 2);
         Vehicle car3 = new Truck("Volvo", 2);
-        Parking truckParking = new TruckParking(5);
+        Parking truckParking = new TruckParking(2);
         List<Parking> parkingList = List.of(truckParking);
         ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);
@@ -52,12 +52,12 @@ public class ServiceParkingTest {
 
     @Ignore
     @Test
-    public void whenCarParking2AndTuckParking5Truck3WithSize2() {
+    public void whenCarParking2AndTuckParking2Truck3WithSize2() {
         Vehicle car = new Truck("Nissan", 2);
         Vehicle car2 = new Truck("Toyota", 2);
         Vehicle car3 = new Truck("Volvo", 2);
-        Parking carParking = new CarParking(2);
-        Parking truckParking = new TruckParking(5);
+        Parking carParking = new CarParking(6);
+        Parking truckParking = new TruckParking(2);
         List<Parking> parkingList = List.of(truckParking, carParking);
         ServiceParking serviceParking = new ServiceParking(parkingList);
         serviceParking.distribution(car);

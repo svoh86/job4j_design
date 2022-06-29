@@ -1,6 +1,5 @@
 package ru.job4j.ood.lsp.parking;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -50,7 +49,6 @@ public class ServiceParkingTest {
         assertEquals(truckParking.getAll(), List.of(car, car2));
     }
 
-    @Ignore
     @Test
     public void whenCarParking2AndTuckParking2Truck3WithSize2() {
         Vehicle car = new Truck("Nissan", 2);

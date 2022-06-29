@@ -9,14 +9,15 @@ import java.util.List;
  * @author Svistunov Mikhail
  * @version 1.1
  * Добавил поля с количеством парковочных мест.
+ * Инициализация списка должна идти в конструкторе после присвоения значения capacity.
  */
 public class CarParking implements Parking {
     private final List<Vehicle> vehicles;
     private int capacity;
 
     public CarParking(int capacity) {
-        this.vehicles = new ArrayList<>(capacity);
         this.capacity = capacity;
+        this.vehicles = new ArrayList<>(capacity);
     }
 
     @Override

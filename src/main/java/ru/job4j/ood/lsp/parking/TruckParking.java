@@ -10,16 +10,16 @@ import java.util.List;
  * @version 1.2
  * Добавил поля с количеством парковочных мест.
  * Метод park() в TruckParking учитывает, что нельзя парковать легковые машины.
+ * Инициализация списка должна идти в конструкторе после присвоения значения capacity.
  */
 public class TruckParking implements Parking {
     private final List<Vehicle> vehicles;
     private int capacity;
 
-    private int countSize = 0;
 
     public TruckParking(int capacity) {
-        this.vehicles = new ArrayList<>(capacity);
         this.capacity = capacity;
+        this.vehicles = new ArrayList<>(capacity);
     }
 
     @Override

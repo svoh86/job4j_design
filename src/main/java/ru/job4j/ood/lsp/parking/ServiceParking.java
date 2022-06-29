@@ -9,6 +9,9 @@ import java.util.List;
  * @version 1.2
  * Добавил поля с количеством парковочных мест для легковых и грузовых.
  * Перенес поля в реализации Parking.
+ * Здесь не совсем применим данный шаблон, так как есть одно общее условие у Стратегий,
+ * поэтому было бы достаточно создать абстракцию Транспорта + 2 его реализации
+ * и абстракция Парковки + одна реализация с методов add, в котором 3 условия для добавления.
  */
 public class ServiceParking {
     private final List<Parking> parkingList;
@@ -19,7 +22,9 @@ public class ServiceParking {
 
     public void distribution(Vehicle vehicle) {
         for (Parking parking : parkingList) {
-            parking.park(vehicle);
+            if (parking.park(vehicle)) {
+                break;
+            }
         }
     }
 }

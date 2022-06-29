@@ -4,7 +4,9 @@ import java.util.*;
 
 /**
  * @author Svistunov Mikhail
- * @version 1.0
+ * @version 1.1
+ * В add нужно проверить childName на уникальность.
+ * Если в меню есть уже элемент с таким именем, это затруднит поиск.
  */
 public class SimpleMenu implements Menu {
     private final List<MenuItem> rootElements = new ArrayList<>();
@@ -12,6 +14,9 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         boolean rsl = false;
+        if (findItem(childName).isPresent()) {
+            return false;
+        }
         SimpleMenuItem simpleMenuItem = new SimpleMenuItem(childName, actionDelegate);
         if (Objects.equals(parentName, Menu.ROOT)) {
             rsl = rootElements.add(simpleMenuItem);
@@ -26,12 +31,7 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        Optional<MenuItemInfo> menuItemInfo = Optional.empty();
-        Optional<ItemInfo> itemInfo = findItem(itemName);
-        if (itemInfo.isPresent()) {
-            menuItemInfo = Optional.of(new MenuItemInfo(itemInfo.get().menuItem, itemInfo.get().number));
-        }
-        return menuItemInfo;
+        return findItem(itemName).map(itemInfo -> new MenuItemInfo(itemInfo.menuItem, itemInfo.number));
     }
 
     @Override

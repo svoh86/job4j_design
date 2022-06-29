@@ -13,6 +13,7 @@ import java.util.List;
  * Добавлены константы.
  * save() переделан на boolean.
  * Класс PercentDate заменен на дефолтный метод в интерфейсе Store.
+ * Добавлен метод очистки листа.
  */
 public class Shop implements Store {
     private final List<Food> foods = new ArrayList<>();
@@ -36,5 +37,10 @@ public class Shop implements Store {
     @Override
     public List<Food> getAll() {
         return List.copyOf(foods);
+    }
+
+    @Override
+    public void clear() {
+        foods.clear();
     }
 }

@@ -7,12 +7,13 @@ import java.util.List;
  * Класс описывает хранилище Warehouse
  *
  * @author Svistunov Mikhail
- * @version 1.1
+ * @version 1.2
  * getAll() нарушал инкапсуляцию, т.к. получаем доступ к хранилищу и
  * можем добавлять невалидный продукты напрямую. Теперь возвращаем копию.
  * Добавлены константы.
  * save() переделан на boolean.
  * Класс PercentDate заменен на дефолтный метод в интерфейсе Store.
+ * Добавлен метод очистки листа.
  */
 public class Warehouse implements Store {
     private final List<Food> foods = new ArrayList<>();
@@ -30,5 +31,10 @@ public class Warehouse implements Store {
     @Override
     public List<Food> getAll() {
         return List.copyOf(foods);
+    }
+
+    @Override
+    public void clear() {
+        foods.clear();
     }
 }

@@ -3,7 +3,6 @@ package ru.job4j.ood.lsp.foodstore;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -82,6 +81,29 @@ public class ControlQualityTest {
         controlQuality.distribution(breadDiscount);
         assertEquals(warehouse.getAll(), List.of(milk));
         assertEquals(trash.getAll(), List.of(cheese));
+        assertEquals(shop.getAll(), List.of(bread, breadDiscount));
+    }
+
+    @Test
+    public void whenResort() {
+        Food milk = new Milk(
+                "Milk", currentDate.plusDays(10), currentDate.minusDays(1), 100, 10);
+        Food cheese = new Cheese(
+                "Cheese", currentDate.minusDays(10), currentDate.minusDays(20), 200, 20);
+        Food bread = new Bread(
+                "Bread", currentDate.plusDays(3), currentDate.minusDays(3), 100, 10);
+        Food breadDiscount = new Bread(
+                "Bread", currentDate.plusDays(1), currentDate.minusDays(5), 100, 10);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.distribution(milk);
+        controlQuality.distribution(cheese);
+        controlQuality.distribution(bread);
+        controlQuality.distribution(breadDiscount);
+        cheese.setExpiryDate(currentDate.plusDays(10));
+        cheese.setCreateDate(currentDate.minusDays(1));
+        controlQuality.resort();
+        assertEquals(warehouse.getAll(), List.of(milk, cheese));
+        assertEquals(trash.getAll(), List.of());
         assertEquals(shop.getAll(), List.of(bread, breadDiscount));
     }
 }

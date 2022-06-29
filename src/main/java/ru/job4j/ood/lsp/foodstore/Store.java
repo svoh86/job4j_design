@@ -9,11 +9,14 @@ import java.util.List;
  * Методы для сохранения в списке продуктов по условию
  * и получения всех продуктов.
  * Дефолтный метод высчитывает процент от срока годности.
+ * Добавлен метод очистки листа.
  */
 public interface Store {
     boolean save(Food food);
 
     List<Food> getAll();
+
+    void clear();
 
     default double percent(Food food) {
         LocalDate currentDate = LocalDate.now();

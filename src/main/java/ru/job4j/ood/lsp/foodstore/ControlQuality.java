@@ -1,5 +1,6 @@
 package ru.job4j.ood.lsp.foodstore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,21 @@ public class ControlQuality {
     public void distribution(Food food) {
         for (Store store : storeList) {
             store.save(food);
+        }
+    }
+
+    /**
+     * Метод извлекает все продукты и перераспределять их заново.
+     * При этом очищаем список продуктов, которые были там ранее.
+     */
+    public void resort() {
+        List<Food> allFoods = new ArrayList<>();
+        for (Store store : storeList) {
+            allFoods.addAll(store.getAll());
+            store.clear();
+        }
+        for (Food food : allFoods) {
+            distribution(food);
         }
     }
 }
